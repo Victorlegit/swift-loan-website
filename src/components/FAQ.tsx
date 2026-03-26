@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Search } from 'lucide-react';
 
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const faqs = [
     {
@@ -28,16 +29,46 @@ export function FAQ() {
     }
   ];
 
+  const filteredFaqs = faqs.filter(faq =>
+    faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    faq.answer.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <section className="py-24 bg-white">
       <div className="max-w-3xl mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
           <p className="text-lg text-slate-600">Got questions? We've got answers.</p>
         </div>
 
+        <div className="relative max-w-xl mx-auto mb-10">
+          <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+            <Search className="h-5 w-5 text-slate-400" />
+          </div>
+          <input
+            type="text"
+            className="block w-full pl-11 pr-4 py-3 border border-slate-200 rounded-xl bg-slate-50 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-shadow"
+            placeholder="Search questions..."
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setOpenIndex(null);
+            }}
+          />
+        </div>
+
         <div className="space-y-4">
-          {faqs.map((faq, index) => (
+          {filteredFaqs.length === 0 ? (
+            <motion.div 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              className="text-center py-12 text-slate-500"
+            >
+              No matching questions found for "{searchQuery}".
+            </motion.div>
+          ) : (
+            filteredFaqs.map((faq, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 10 }}
@@ -72,7 +103,8 @@ export function FAQ() {
                 )}
               </AnimatePresence>
             </motion.div>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </section>
