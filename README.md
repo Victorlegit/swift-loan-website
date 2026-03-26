@@ -1,11 +1,14 @@
-<div align="center">
+# SwiftLoan
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+A modern digital lending startup landing page.
 
-  <h1>Built with AI Studio</h2>
+## Features
+- **Problem -> Solution Hero**: High-conversion landing area.
+- **Trust Badges**: Social proof from financial partners.
+- **How it Works**: Simple 3-step process explanation.
+- **Pricing/Plans**: Transparent loan tiers.
+- **Animations**: Smooth scroll reveal animations using Framer Motion.
+- **SEO Optimized**: Built-in metadata for search engines.
 
-  <p>The fastest path from prompt to production with Gemini.</p>
-
-  <a href="https://aistudio.google.com/apps">Start building</a>
-
-</div>
+## Development
+Run `npm run dev` to start the development server.
